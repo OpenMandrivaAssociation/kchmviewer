@@ -40,14 +40,14 @@ files, and correctly searches in non-English help files
 %setup -q
 
 %build
-%configure \
+%configure2_5x \
 		--disable-rpath \
 		--with-xinerama \
 		--with-kde \
-%if "%{_lib}" != "lib"
-    --enable-libsuffix="%(A=%{_lib}; echo ${A/lib/})"
-%endif
-
+		--with-qt-dir=%{qt3dir} \
+		--with-qt-includes=%{qt3include} \
+		--with-qt-libraries=%{qt3lib} \
+		--with-builtin-chmlib
 %make
 
 %install
