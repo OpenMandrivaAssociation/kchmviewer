@@ -1,5 +1,5 @@
 %define name kchmviewer
-%define version 2.7
+%define version 3.0
 %define release %mkrel 1
 %define __libtoolize /bin/true
 %define __cputoolize /bin/true
@@ -17,7 +17,7 @@ Summary: 	Kchmviewer is a new chm viewer for KDE
 License: 	GPL
 URL: 		http://kchmviewer.sourceforge.net/
 Group: 		Development/KDE and Qt
-Source: 	%name-%version.tar.bz2
+Source: 	%name-%version.tar.gz
 BuildRoot: 	%{_tmppath}/%{name}-buildroot
 BuildRequires: kdelibs-devel >= 3.2
 
@@ -84,5 +84,3 @@ rm -rf %{buildroot}
 %{clean_desktop_database}
 %clean_icon_cache crystalsvg
 %endif
-
-
