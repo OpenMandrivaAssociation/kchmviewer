@@ -53,14 +53,17 @@ files, and correctly searches in non-English help files
 %install
 rm -rf $RPM_BUILD_ROOT
 %{makeinstall_std}
+rm -f %{_libdir}/*.a
 
 install -d $RPM_BUILD_ROOT%{_menudir}
 kdedesktop2mdkmenu.pl %{name} "More Applications/Development/Tools" $RPM_BUILD_ROOT%{_datadir}/applnk/kchmviewer.desktop $RPM_BUILD_ROOT%{_menudir}/%{name}
 
+%{find_lang} %{name}
+
 %clean
 rm -rf %{buildroot}
 
-%files 
+%files -f %{name}.lang
 %defattr(-,root,root)
 %{_bindir}/kchmviewer
 %{_menudir}/*
