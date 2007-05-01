@@ -47,13 +47,13 @@ files, and correctly searches in non-English help files
 		--with-kde \
 		--with-qt-dir=%{qt3dir} \
 		--with-qt-includes=%{qt3include} \
-		--with-qt-libraries=%{qt3lib} \
+		--with-qt-libraries=%{qt3lib}
 %make
 
 %install
 rm -rf $RPM_BUILD_ROOT
 %{makeinstall_std}
-rm -f %{_libdir}/*.a
+rm -f $RPM_BUILD_ROOT%{_libdir}/*.a
 
 install -d $RPM_BUILD_ROOT%{_menudir}
 kdedesktop2mdkmenu.pl %{name} "More Applications/Development/Tools" $RPM_BUILD_ROOT%{_datadir}/applnk/kchmviewer.desktop $RPM_BUILD_ROOT%{_menudir}/%{name}
