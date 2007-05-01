@@ -19,7 +19,8 @@ URL: 		http://kchmviewer.sourceforge.net/
 Group: 		Development/KDE and Qt
 Source: 	%name-%version.tar.gz
 BuildRoot: 	%{_tmppath}/%{name}-buildroot
-BuildRequires: kdelibs-devel >= 3.2
+BuildRequires:	kdelibs-devel >= 3.2
+BuildRequires:	chmlib-devel
 
 Requires(post):    desktop-file-utils
 Requires(postun ): desktop-file-utils
@@ -47,7 +48,6 @@ files, and correctly searches in non-English help files
 		--with-qt-dir=%{qt3dir} \
 		--with-qt-includes=%{qt3include} \
 		--with-qt-libraries=%{qt3lib} \
-		--with-builtin-chmlib
 %make
 
 %install
