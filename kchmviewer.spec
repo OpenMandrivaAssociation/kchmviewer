@@ -8,16 +8,16 @@
 %define lib_major 0
 %define lib_name %lib_name_orig%lib_major
 
-Name:      	%{name}
-Version:   	%{version}
-Release:   	%{release}
-Summary: 	Kchmviewer is a new chm viewer for KDE
-License: 	GPL
-URL: 		http://kchmviewer.sourceforge.net/
-Group: 		Development/KDE and Qt
-Source: 	%name-%version-2.tar.gz
-Patch1:		kchmviewer-3.1-desktop-file.patch
-BuildRoot: 	%{_tmppath}/%{name}-buildroot
+Name: kchmviewer
+Version: 3.1
+Release: %mkrel 2
+Summary:	Kchmviewer is a KDE chm viewer
+License:	GPL
+URL: http://kchmviewer.sourceforge.net/
+Group: Graphical desktop/KDE
+Source: %name-%version-2.tar.gz
+Patch1: kchmviewer-3.1-desktop-file.patch
+BuildRoot: %{_tmppath}/%{name}-buildroot
 BuildRequires:	kdelibs-devel >= 3.2
 BuildRequires:	chmlib-devel
 
@@ -42,45 +42,39 @@ files, and correctly searches in non-English help files
 
 %build
 %configure2_5x \
-		--disable-rpath \
-		--with-xinerama \
-		--with-kde \
-		--with-qt-dir=%{qt3dir} \
-		--with-qt-includes=%{qt3include} \
-		--with-qt-libraries=%{qt3lib}
+	--disable-rpath \
+	--with-xinerama \
+	--with-kde \
+	%if "%{_lib}" != "lib"
+	--enable-libsuffix="%(A=%{_lib}; echo ${A/lib/})" \
+	%endif
+	--disable-static
+
 %make
 
 %install
-rm -rf $RPM_BUILD_ROOT
-%{makeinstall_std}
+rm -rf %buildroot
+%makeinstall_std
 
-rm -f $RPM_BUILD_ROOT%{_libdir}/*.a
-rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*.a
-rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*.la
+%find_lang %name
 
-desktop-file-install --dir $RPM_BUILD_ROOT%{_datadir}/applications \
-	--vendor="" \
-	$RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
-
-%{find_lang} %{name}
+# Remove static ( there's a problem on buildsystem )
+rm -f %buildroot%_libdir/*.a
 
 %clean
-rm -rf %{buildroot}
+rm -rf %buildroot
 
 %files -f %{name}.lang
 %defattr(-,root,root)
 %{_bindir}/kchmviewer
-%{_libdir}/kde3/kio_msits.so
+%{_libdir}/kde3/*
 %{_datadir}/applications/kchmviewer.desktop
 %{_datadir}/services/msits.protocol
 %{_iconsdir}/crystalsvg/*/apps/*
 
 %post
-%{update_menus}
-%{update_desktop_database}
-%{update_icon_cache} crystalsvg
+%update_menus
 
 %postun
-%{clean_menus}
-%{clean_desktop_database}
-%{clean_icon_cache} crystalsvg
+%clean_menus
+
