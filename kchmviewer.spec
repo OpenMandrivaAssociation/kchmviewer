@@ -8,8 +8,6 @@
 %define lib_major 0
 %define lib_name %lib_name_orig%lib_major
 
-
-
 Name:      	%{name}
 Version:   	%{version}
 Release:   	%{release}
@@ -55,9 +53,6 @@ rm -rf $RPM_BUILD_ROOT
 %{makeinstall_std}
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.a
 
-install -d $RPM_BUILD_ROOT%{_menudir}
-kdedesktop2mdkmenu.pl %{name} "More Applications/Development/Tools" $RPM_BUILD_ROOT%{_datadir}/applnk/kchmviewer.desktop $RPM_BUILD_ROOT%{_menudir}/%{name}
-
 %{find_lang} %{name}
 
 %clean
@@ -66,7 +61,6 @@ rm -rf %{buildroot}
 %files -f %{name}.lang
 %defattr(-,root,root)
 %{_bindir}/kchmviewer
-%{_menudir}/*
 %{_libdir}/kde3/kio_msits.a
 %{_libdir}/kde3/kio_msits.la
 %{_libdir}/kde3/kio_msits.so
@@ -76,14 +70,10 @@ rm -rf %{buildroot}
 
 %post
 %{update_menus}
-%if %mdkversion > 200600
 %{update_desktop_database}
 %update_icon_cache crystalsvg
-%endif
 
 %postun
 %{clean_menus}
-%if %mdkversion > 200600
 %{clean_desktop_database}
 %clean_icon_cache crystalsvg
-%endif
