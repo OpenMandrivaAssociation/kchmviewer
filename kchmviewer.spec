@@ -22,7 +22,7 @@ BuildRequires:	kdelibs-devel >= 3.2
 BuildRequires:	chmlib-devel
 
 Requires(post):    desktop-file-utils
-Requires(postun ): desktop-file-utils
+Requires(postun): desktop-file-utils
 
 %description
 KchmViewer is a chm (MS HTML help file format) viewer, written in C++. 
