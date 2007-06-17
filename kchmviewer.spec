@@ -1,5 +1,5 @@
 %define name kchmviewer
-%define version 3.0
+%define version 3.1
 %define release %mkrel 1
 %define __libtoolize /bin/true
 %define __cputoolize /bin/true
@@ -15,7 +15,8 @@ Summary: 	Kchmviewer is a new chm viewer for KDE
 License: 	GPL
 URL: 		http://kchmviewer.sourceforge.net/
 Group: 		Development/KDE and Qt
-Source: 	%name-%version.tar.gz
+Source: 	%name-%version-2.tar.gz
+Patch1:		kchmviewer-3.1-desktop-file.patch
 BuildRoot: 	%{_tmppath}/%{name}-buildroot
 BuildRequires:	kdelibs-devel >= 3.2
 BuildRequires:	chmlib-devel
@@ -37,6 +38,7 @@ files, and correctly searches in non-English help files
 %prep
 
 %setup -q
+%patch1 -p0
 
 %build
 %configure2_5x \
@@ -51,7 +53,14 @@ files, and correctly searches in non-English help files
 %install
 rm -rf $RPM_BUILD_ROOT
 %{makeinstall_std}
+
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.a
+rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*.a
+rm -f $RPM_BUILD_ROOT%{_libdir}/kde3/*.la
+
+desktop-file-install --dir $RPM_BUILD_ROOT%{_datadir}/applications \
+	--vendor="" \
+	$RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 %{find_lang} %{name}
 
@@ -61,19 +70,17 @@ rm -rf %{buildroot}
 %files -f %{name}.lang
 %defattr(-,root,root)
 %{_bindir}/kchmviewer
-%{_libdir}/kde3/kio_msits.a
-%{_libdir}/kde3/kio_msits.la
 %{_libdir}/kde3/kio_msits.so
-%{_datadir}/applnk/kchmviewer.desktop
+%{_datadir}/applications/kchmviewer.desktop
 %{_datadir}/services/msits.protocol
 %{_iconsdir}/crystalsvg/*/apps/*
 
 %post
 %{update_menus}
 %{update_desktop_database}
-%update_icon_cache crystalsvg
+%{update_icon_cache} crystalsvg
 
 %postun
 %{clean_menus}
 %{clean_desktop_database}
-%clean_icon_cache crystalsvg
+%{clean_icon_cache} crystalsvg
