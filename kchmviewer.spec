@@ -10,7 +10,7 @@
 
 Name: kchmviewer
 Version: 3.1
-Release: %mkrel 2
+Release: %mkrel 3
 Summary:	Kchmviewer is a KDE chm viewer
 License:	GPL
 URL: http://kchmviewer.sourceforge.net/
@@ -18,8 +18,8 @@ Group: Graphical desktop/KDE
 Source: %name-%version-2.tar.gz
 Patch1: kchmviewer-3.1-desktop-file.patch
 BuildRoot: %{_tmppath}/%{name}-buildroot
-BuildRequires:	kdelibs-devel >= 3.2
-BuildRequires:	chmlib-devel
+BuildRequires: kdelibs-devel >= 3.2
+BuildRequires: kchm-devel
 
 Requires(post):    desktop-file-utils
 Requires(postun): desktop-file-utils
