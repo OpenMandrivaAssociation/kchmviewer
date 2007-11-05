@@ -1,6 +1,6 @@
 %define name kchmviewer
 %define version 3.1
-%define release %mkrel 1
+%define release %mkrel 2
 %define __libtoolize /bin/true
 %define __cputoolize /bin/true
 
