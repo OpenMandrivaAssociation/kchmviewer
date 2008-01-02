@@ -17,6 +17,7 @@ URL: http://kchmviewer.sourceforge.net/
 Group: Graphical desktop/KDE
 Source: %name-%version-2.tar.gz
 Patch1: kchmviewer-3.1-desktop-file.patch
+BuildRoot: %{_tmppath}/%{name}-buildroot
 BuildRequires: kdelibs-devel >= 3.2
 BuildRequires: kchm-devel
 
