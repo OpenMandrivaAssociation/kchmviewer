@@ -1,6 +1,6 @@
 %define name kchmviewer
 %define version 3.1
-%define release %mkrel 2
+%define release %mkrel 3
 %define __libtoolize /bin/true
 %define __cputoolize /bin/true
 
@@ -10,7 +10,7 @@
 
 Name: kchmviewer
 Version: 3.1
-Release: %mkrel 3
+Release: %mkrel 4
 Summary:	KDE chm viewer
 License:	GPL
 URL: http://kchmviewer.sourceforge.net/
