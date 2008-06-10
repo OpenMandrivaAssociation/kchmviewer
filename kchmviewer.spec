@@ -1,28 +1,17 @@
-%define name kchmviewer
-%define version 3.1
-%define release %mkrel 3
-%define __libtoolize /bin/true
-%define __cputoolize /bin/true
-
-%define lib_name_orig %mklibname %name
-%define lib_major 0
-%define lib_name %lib_name_orig%lib_major
+%define betaver beta3
+%define rel 1
 
 Name: kchmviewer
-Version: 3.1
-Release: %mkrel 4
-Summary:	KDE chm viewer
-License:	GPL
+Version: 4.0
+Release: %mkrel -c %betaver %rel
+Summary: KDE chm viewer
+License: GPLv2+
 URL: http://kchmviewer.sourceforge.net/
 Group: Graphical desktop/KDE
-Source: %name-%version-2.tar.gz
-Patch1: kchmviewer-3.1-desktop-file.patch
+Source: %name-%version%betaver.tar.gz
 BuildRoot: %{_tmppath}/%{name}-buildroot
-BuildRequires: kdelibs-devel >= 3.2
-BuildRequires: kchm-devel
-
-Requires(post):    desktop-file-utils
-Requires(postun): desktop-file-utils
+BuildRequires: kdelibs4-devel
+BuildRequires: chmlib-devel
 
 %description
 KchmViewer is a chm (MS HTML help file format) viewer, written in C++. 
@@ -36,41 +25,30 @@ files, and correctly searches in non-English help files
 (search for MBCS languages - ja/ko/ch is still in progress).
 
 %prep
-
-%setup -q
-%patch1 -p0
+%setup -q -n %name-%version%betaver
 
 %build
-%configure2_5x \
-	--disable-rpath \
-	--with-xinerama \
-	--with-kde \
-	%if "%{_lib}" != "lib"
-	--enable-libsuffix="%(A=%{_lib}; echo ${A/lib/})" \
-	%endif
-	--disable-static
-
+%cmake_kde4
 %make
 
 %install
 rm -rf %buildroot
+cd build
 %makeinstall_std
+cd -
 
 %find_lang %name
-
-# Remove static ( there's a problem on buildsystem )
-rm -f %buildroot%_libdir/*.a
 
 %clean
 rm -rf %buildroot
 
 %files -f %{name}.lang
 %defattr(-,root,root)
-%{_bindir}/kchmviewer
-%{_libdir}/kde3/*
-%{_datadir}/applications/kchmviewer.desktop
-%{_datadir}/services/msits.protocol
-%{_iconsdir}/crystalsvg/*/apps/*
+%{_kde_bindir}/kchmviewer
+%{_kde_libdir}/kio_msits.so
+%{_kde_datadir}/applications/kde4/kchmviewer.desktop
+%{_kde_datadir}/kde4/services/msits.protocol
+%{_kde_iconsdir}/crystalsvg/*/apps/*
 
 %post
 %update_menus
