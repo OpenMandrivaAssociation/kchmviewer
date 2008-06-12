@@ -50,9 +50,13 @@ rm -rf %buildroot
 %{_kde_datadir}/kde4/services/msits.protocol
 %{_kde_iconsdir}/crystalsvg/*/apps/*
 
+%if %mdkversion < 200900
 %post
 %update_menus
+%endif
 
+%if %mdkversion < 200900
 %postun
 %clean_menus
+%endif
 
