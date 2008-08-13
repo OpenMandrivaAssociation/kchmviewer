@@ -24,6 +24,26 @@ correctly shows tables of context of Russian, Korean, Chinese and Japanese help
 files, and correctly searches in non-English help files 
 (search for MBCS languages - ja/ko/ch is still in progress).
 
+%if %mdkversion < 200900
+%post
+%update_menus
+%endif
+
+%if %mdkversion < 200900
+%postun
+%clean_menus
+%endif
+
+%files -f %{name}.lang
+%defattr(-,root,root)
+%{_kde_bindir}/kchmviewer
+%{_kde_datadir}/applications/kde4/kchmviewer.desktop
+%{_kde_iconsdir}/crystalsvg/*/apps/*
+%exclude %{_kde_libdir}/kio_msits.so
+%exclude %{_kde_datadir}/kde4/services/msits.protocol
+
+#--------------------------------------------------------------------
+
 %prep
 %setup -q -n %name-%version%betaver
 
@@ -37,28 +57,7 @@ cd build
 %makeinstall_std
 cd -
 
-# these files conflict with okular
-rm -f %buildroot%{_kde_libdir}/kio_msits.so
-rm -f %buildroot%{_kde_datadir}/kde4/services/msits.protocol
-
 %find_lang %name
 
 %clean
 rm -rf %buildroot
-
-%files -f %{name}.lang
-%defattr(-,root,root)
-%{_kde_bindir}/kchmviewer
-%{_kde_datadir}/applications/kde4/kchmviewer.desktop
-%{_kde_iconsdir}/crystalsvg/*/apps/*
-
-%if %mdkversion < 200900
-%post
-%update_menus
-%endif
-
-%if %mdkversion < 200900
-%postun
-%clean_menus
-%endif
-
