@@ -1,5 +1,5 @@
 %define betaver beta3
-%define rel 1
+%define rel 2
 
 Name: kchmviewer
 Version: 4.0
@@ -37,6 +37,10 @@ cd build
 %makeinstall_std
 cd -
 
+# these files conflict with okular
+rm -f %buildroot%{_kde_libdir}/kio_msits.so
+rm -f %buildroot%{_kde_datadir}/kde4/services/msits.protocol
+
 %find_lang %name
 
 %clean
@@ -45,9 +49,7 @@ rm -rf %buildroot
 %files -f %{name}.lang
 %defattr(-,root,root)
 %{_kde_bindir}/kchmviewer
-%{_kde_libdir}/kio_msits.so
 %{_kde_datadir}/applications/kde4/kchmviewer.desktop
-%{_kde_datadir}/kde4/services/msits.protocol
 %{_kde_iconsdir}/crystalsvg/*/apps/*
 
 %if %mdkversion < 200900
