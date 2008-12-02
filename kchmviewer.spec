@@ -1,17 +1,17 @@
-%define betaver beta3
-%define rel 2
+%define rel 1
 
 Name: kchmviewer
 Version: 4.0
-Release: %mkrel -c %betaver %rel
+Release: %mkrel %rel
 Summary: KDE chm viewer
 License: GPLv2+
 URL: http://kchmviewer.sourceforge.net/
 Group: Graphical desktop/KDE
-Source: %name-%version%betaver.tar.gz
+Source: http://downloads.sourceforge.net/kchmviewer/%name-%version.tar.gz
 BuildRoot: %{_tmppath}/%{name}-buildroot
 BuildRequires: kdelibs4-devel
 BuildRequires: chmlib-devel
+Requires: okular
 
 %description
 KchmViewer is a chm (MS HTML help file format) viewer, written in C++. 
@@ -39,13 +39,13 @@ files, and correctly searches in non-English help files
 %{_kde_bindir}/kchmviewer
 %{_kde_datadir}/applications/kde4/kchmviewer.desktop
 %{_kde_iconsdir}/crystalsvg/*/apps/*
-%exclude %{_kde_libdir}/kio_msits.so
+%exclude %{_kde_libdir}/kde4/kio_msits.so
 %exclude %{_kde_datadir}/kde4/services/msits.protocol
 
 #--------------------------------------------------------------------
 
 %prep
-%setup -q -n %name-%version%betaver
+%setup -q -n %name-%version
 
 %build
 %cmake_kde4
@@ -53,9 +53,7 @@ files, and correctly searches in non-English help files
 
 %install
 rm -rf %buildroot
-cd build
-%makeinstall_std
-cd -
+%makeinstall_std -C build
 
 %find_lang %name
 
