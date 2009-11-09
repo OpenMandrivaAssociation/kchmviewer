@@ -1,7 +1,7 @@
 %define rel 1
 
 Name: kchmviewer
-Version: 4.1
+Version: 4.2
 Release: %mkrel %rel
 Summary: KDE chm viewer
 License: GPLv2+
