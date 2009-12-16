@@ -1,7 +1,7 @@
 %define rel 1
 
 Name: kchmviewer
-Version: 4.2
+Version: 5.0
 Release: %mkrel %rel
 Summary: KDE chm viewer
 License: GPLv2+
@@ -38,14 +38,13 @@ files, and correctly searches in non-English help files
 %defattr(-,root,root)
 %{_kde_bindir}/kchmviewer
 %{_kde_datadir}/applications/kde4/kchmviewer.desktop
-%{_kde_iconsdir}/crystalsvg/*/apps/*
 %exclude %{_kde_libdir}/kde4/kio_msits.so
 %exclude %{_kde_datadir}/kde4/services/msits.protocol
 
 #--------------------------------------------------------------------
 
 %prep
-%setup -q -n %name-%version
+%setup -q -n build-%version
 
 %build
 %cmake_kde4
