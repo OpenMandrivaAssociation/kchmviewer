@@ -1,17 +1,15 @@
-%define rel 1
-
-Name: kchmviewer
-Version: 5.0
-Release: %mkrel %rel
-Summary: KDE chm viewer
-License: GPLv2+
-URL: http://kchmviewer.sourceforge.net/
-Group: Graphical desktop/KDE
-Source: http://downloads.sourceforge.net/kchmviewer/%name-%version.tar.gz
-BuildRoot: %{_tmppath}/%{name}-buildroot
-BuildRequires: kdelibs4-devel
-BuildRequires: chmlib-devel
-Requires: okular
+Name:		kchmviewer
+Version:	5.0
+Release:	%mkrel 1
+Summary:	KDE chm viewer
+License:	GPLv2+
+URL:		http://kchmviewer.sourceforge.net/
+Group:		Graphical desktop/KDE
+Source:		http://downloads.sourceforge.net/kchmviewer/%{name}-%{version}.tar.gz
+BuildRoot:	%{_tmppath}/%{name}-buildroot
+BuildRequires:	kdelibs4-devel
+BuildRequires:	chmlib-devel
+Requires:	okular
 
 %description
 KchmViewer is a chm (MS HTML help file format) viewer, written in C++. 
@@ -44,17 +42,17 @@ files, and correctly searches in non-English help files
 #--------------------------------------------------------------------
 
 %prep
-%setup -q -n build-%version
+%setup -q -n build-%{version}
 
 %build
 %cmake_kde4
 %make
 
 %install
-rm -rf %buildroot
+rm -rf %{buildroot}
 %makeinstall_std -C build
 
-%find_lang %name
+%find_lang %{name}
 
 %clean
-rm -rf %buildroot
+rm -rf %{buildroot}
