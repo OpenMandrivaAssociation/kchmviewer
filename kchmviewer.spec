@@ -1,5 +1,5 @@
 Name:		kchmviewer
-Version:	5.0
+Version:	5.1
 Release:	%mkrel 1
 Summary:	KDE chm viewer
 License:	GPLv2+
