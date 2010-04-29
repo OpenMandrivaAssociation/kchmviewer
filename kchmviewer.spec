@@ -1,11 +1,12 @@
 Name:		kchmviewer
-Version:	5.1
+Version:	5.2
 Release:	%mkrel 1
 Summary:	KDE chm viewer
 License:	GPLv2+
 URL:		http://kchmviewer.sourceforge.net/
 Group:		Graphical desktop/KDE
 Source:		http://downloads.sourceforge.net/kchmviewer/%{name}-%{version}.tar.gz
+Patch0:		kchmviewer-5.2-fix-build.patch
 BuildRoot:	%{_tmppath}/%{name}-buildroot
 BuildRequires:	kdelibs4-devel
 BuildRequires:	chmlib-devel
@@ -43,6 +44,7 @@ files, and correctly searches in non-English help files
 
 %prep
 %setup -q -n build-%{version}
+%patch0 -p0
 
 %build
 %cmake_kde4
