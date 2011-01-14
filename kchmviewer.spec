@@ -1,6 +1,6 @@
 Name:		kchmviewer
-Version:	5.2
-Release:	%mkrel 2
+Version:	5.3
+Release:	%mkrel 1
 Summary:	KDE chm viewer
 License:	GPLv2+
 URL:		http://kchmviewer.sourceforge.net/
@@ -37,14 +37,11 @@ files, and correctly searches in non-English help files
 %defattr(-,root,root)
 %{_kde_bindir}/kchmviewer
 %{_kde_datadir}/applications/kde4/kchmviewer.desktop
-%exclude %{_kde_libdir}/kde4/kio_msits.so
-%exclude %{_kde_datadir}/kde4/services/msits.protocol
 
 #--------------------------------------------------------------------
 
 %prep
-%setup -q -n build-%{version}
-%patch0 -p0
+%setup -q -n %{name}-%{version}
 
 %build
 %cmake_kde4
@@ -55,6 +52,8 @@ rm -rf %{buildroot}
 %makeinstall_std -C build
 
 %find_lang %{name}
+
+rm -f %{buildroot}%{_kde_libdir}/kde4/kio_msits.so %{buildroot}%{_kde_datadir}/kde4/services/msits.protocol
 
 %clean
 rm -rf %{buildroot}
