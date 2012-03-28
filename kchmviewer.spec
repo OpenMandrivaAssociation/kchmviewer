@@ -1,15 +1,15 @@
 Name:		kchmviewer
-Version:	5.3
+Version:	6.0
 Release:	%mkrel 1
 Summary:	KDE chm viewer
 License:	GPLv2+
 URL:		http://kchmviewer.sourceforge.net/
 Group:		Graphical desktop/KDE
 Source:		http://downloads.sourceforge.net/kchmviewer/%{name}-%{version}.tar.gz
-Patch0:		kchmviewer-5.2-fix-build.patch
-BuildRoot:	%{_tmppath}/%{name}-buildroot
+BuildRequires:	pkgconfig(QtWebKit)
 BuildRequires:	kdelibs4-devel
 BuildRequires:	chmlib-devel
+BuildRequires:	imagemagick
 Requires:	okular
 
 %description
@@ -23,37 +23,35 @@ correctly shows tables of context of Russian, Korean, Chinese and Japanese help
 files, and correctly searches in non-English help files 
 (search for MBCS languages - ja/ko/ch is still in progress).
 
-%if %mdkversion < 200900
-%post
-%update_menus
-%endif
-
-%if %mdkversion < 200900
-%postun
-%clean_menus
-%endif
-
 %files -f %{name}.lang
-%defattr(-,root,root)
 %{_kde_bindir}/kchmviewer
 %{_kde_datadir}/applications/kde4/kchmviewer.desktop
+%{_iconsdir}/hicolor/*/apps/%{name}.png
 
 #--------------------------------------------------------------------
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q
 
 %build
 %cmake_kde4
 %make
 
 %install
-rm -rf %{buildroot}
+%__rm -rf %{buildroot}
 %makeinstall_std -C build
+
+%__rm -f %{buildroot}%{_kde_libdir}/kde4/kio_msits.so
+%__rm -f %{buildroot}%{_kde_datadir}/kde4/services/msits.protocol
+%__mkdir_p %{buildroot}%{_iconsdir}/hicolor/{16x16,32x32,48x48,64x64,128x128}/apps
+%__install -m644 packages/%{name}.png %{buildroot}%{_iconsdir}/hicolor/128x128/apps/
+
+for i in 16x16 32x32 48x48 64x64; do
+    convert -scale $i packages/%{name}.png %{buildroot}%{_iconsdir}/hicolor/$i/apps/%{name}.png
+done
 
 %find_lang %{name}
 
-rm -f %{buildroot}%{_kde_libdir}/kde4/kio_msits.so %{buildroot}%{_kde_datadir}/kde4/services/msits.protocol
-
 %clean
-rm -rf %{buildroot}
+%__rm -rf %{buildroot}
+
