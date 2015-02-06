@@ -1,6 +1,6 @@
 Name:		kchmviewer
 Version:	6.0
-Release:	%mkrel 1
+Release:	2
 Summary:	KDE chm viewer
 License:	GPLv2+
 URL:		http://kchmviewer.sourceforge.net/
