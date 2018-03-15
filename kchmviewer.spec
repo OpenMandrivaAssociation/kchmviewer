@@ -12,6 +12,7 @@ BuildRequires:	pkgconfig(Qt5WebKit)
 BuildRequires:	pkgconfig(Qt5WebKitWidgets) pkgconfig(Qt5Core) pkgconfig(Qt5DBus) pkgconfig(Qt5Gui) pkgconfig(Qt5Network) pkgconfig(Qt5PrintSupport) pkgconfig(Qt5Widgets) pkgconfig(Qt5Xml)
 BuildRequires:	chmlib-devel
 BuildRequires:	imagemagick
+BuildRequires:	pkgconfig(libzip)
 Requires:	okular
 
 %description
