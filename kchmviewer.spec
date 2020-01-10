@@ -36,7 +36,7 @@ files, and correctly searches in non-English help files
 
 %prep
 %setup -q
-%apply_patches
+%autopatch -p1
 
 %build
 %qmake_qt5
