@@ -1,15 +1,23 @@
+%define         bin_ver  %(echo %{version} | sed -e 's/\\./_/')
+
 Name:		kchmviewer
-Version:	7.7
+Version:	8.0
 Release:	1
 Summary:	KDE chm viewer
 License:	GPLv2+
-URL:		http://kchmviewer.sourceforge.net/
+URL:		http://www.ulduzsoft.com/linux/kchmviewer/
 Group:		Graphical desktop/KDE
-Source:		http://downloads.sourceforge.net/kchmviewer/%{name}-%{version}.tar.gz
-Patch1:		fix-qt5-build.patch
+Source:		https://github.com/gyunaev/kchmviewer/archive/refs/tags/RELEASE_%{bin_ver}.tar.gz
 BuildRequires:	cmake(ECM)
-BuildRequires:	pkgconfig(Qt5WebKit)
-BuildRequires:	pkgconfig(Qt5WebKitWidgets) pkgconfig(Qt5Core) pkgconfig(Qt5DBus) pkgconfig(Qt5Gui) pkgconfig(Qt5Network) pkgconfig(Qt5PrintSupport) pkgconfig(Qt5Widgets) pkgconfig(Qt5Xml)
+BuildRequires:	pkgconfig(Qt5WebEngine)
+BuildRequires:	pkgconfig(Qt5WebEngineWidgets)
+BuildRequires:	pkgconfig(Qt5Core)
+BuildRequires:	pkgconfig(Qt5DBus)
+BuildRequires:	pkgconfig(Qt5Gui)
+BuildRequires:	pkgconfig(Qt5Network)
+BuildRequires:	pkgconfig(Qt5PrintSupport)
+BuildRequires:	pkgconfig(Qt5Widgets)
+BuildRequires:	pkgconfig(Qt5Xml)
 BuildRequires:	chmlib-devel
 BuildRequires:	imagemagick
 BuildRequires:	pkgconfig(libzip)
@@ -35,8 +43,7 @@ files, and correctly searches in non-English help files
 #--------------------------------------------------------------------
 
 %prep
-%setup -q
-%autopatch -p1
+%autosetup -p1 -n %{name}-RELEASE_%{bin_ver}
 
 %build
 %qmake_qt5
