@@ -1,0 +1,15 @@
+--- kchmviewer-RELEASE_8_0/src/src.pro.orig	2024-02-24 08:36:50.854131816 +0000
++++ kchmviewer-RELEASE_8_0/src/src.pro	2024-02-24 08:37:01.339842690 +0000
+@@ -60,11 +60,9 @@
+     toolbareditor.ui
+ RESOURCES += resources/images.qrc
+ 
+-QT += webkit \
+-	xml \
++QT += xml \
+     network \
+     widgets \
+-    webkitwidgets \
+     printsupport
+ 
+ linux-g++*:{

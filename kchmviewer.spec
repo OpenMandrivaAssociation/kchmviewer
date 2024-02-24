@@ -8,6 +8,7 @@ License:	GPLv2+
 URL:		http://www.ulduzsoft.com/linux/kchmviewer/
 Group:		Graphical desktop/KDE
 Source:		https://github.com/gyunaev/kchmviewer/archive/refs/tags/RELEASE_%{bin_ver}.tar.gz
+Patch1:		fix-no-webkit.patch
 BuildRequires:	cmake(ECM)
 BuildRequires:	pkgconfig(Qt5WebEngine)
 BuildRequires:	pkgconfig(Qt5WebEngineWidgets)
