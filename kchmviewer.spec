@@ -5,7 +5,7 @@ Version:	8.0
 Release:	1
 Summary:	KDE chm viewer
 License:	GPLv2+
-URL:		http://www.ulduzsoft.com/linux/kchmviewer/
+URL:		https://www.ulduzsoft.com/linux/kchmviewer/
 Group:		Graphical desktop/KDE
 Source:		https://github.com/gyunaev/kchmviewer/archive/refs/tags/RELEASE_%{bin_ver}.tar.gz
 Patch1:		fix-no-webkit.patch
